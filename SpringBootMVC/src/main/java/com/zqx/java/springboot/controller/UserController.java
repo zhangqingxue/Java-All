@@ -40,6 +40,9 @@ public class UserController {
 
     /**
      * 用户列表(分页)
+     * @param pageNum 页值
+     * @param pageSize 页大小
+     * @return
      */
     @RequestMapping("/userPages")
     @ResponseBody

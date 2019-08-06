@@ -15,4 +15,5 @@ public interface UserMapper {
     List<User> findAll();
 
     boolean insertUser(User user);
+
 }
