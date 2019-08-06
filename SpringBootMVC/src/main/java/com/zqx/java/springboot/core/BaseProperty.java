@@ -6,6 +6,10 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 @Component
+/**
+ * springboot的配置读取方式用如下两个注解。
+ * 但是不如直接使用spring的@Value好用。
+ */
 //@PropertySource("classpath:application-custom.properties")
 //@ConfigurationProperties(prefix = "core")
 public class BaseProperty {
@@ -26,3 +30,4 @@ public class BaseProperty {
                 '}';
     }
 }
+
