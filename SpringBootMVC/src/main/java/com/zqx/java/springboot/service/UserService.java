@@ -12,4 +12,6 @@ public interface UserService {
     User getUserByName(String name);
 
     boolean insertUser(User user);
+
+    User getUser(String userName, String password);
 }

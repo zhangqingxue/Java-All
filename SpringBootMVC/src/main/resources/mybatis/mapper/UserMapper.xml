@@ -18,6 +18,9 @@
     <select id="getUserByName" parameterType="string" resultMap="userMap">
         SELECT id, login_name, `password`, city, age, sex FROM USER_INFO WHERE login_name = #{userName}
     </select>
+    <select id="getUser" parameterType="string" resultType="com.zqx.java.springboot.entity.User">
+        SELECT id, login_name, `password`, city, age, sex FROM USER_INFO WHERE login_name = #{userName} AND `password` = #{password}
+    </select>
 
     <insert id="insertUser" parameterType="com.zqx.java.springboot.entity.User">
         INSERT INTO USER_INFO(id, login_name, `password`, city, age, sex)  VALUES (DEFAULT, #{loginName}, #{password}, #{city}, #{age}, #{sex})
