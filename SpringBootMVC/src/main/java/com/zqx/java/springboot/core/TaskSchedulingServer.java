@@ -12,22 +12,24 @@ public class TaskSchedulingServer {
     boolean executeIfDefault;
 
     @Async
-    @Scheduled(cron="${scheduled.executeCron}")
-    public void execute(){
-        System.out.println("=====执行开始======");
+    @Scheduled(cron = "${scheduled.executeCron}")
+    public void execute() {
+        if (executeIfDefault) {
+            System.out.println("=====执行开始======");
 
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
 
-        System.out.println("<<<<<<<<<<<执行结束>>>>>>>>>>");
+            System.out.println("<<<<<<<<<<<执行结束>>>>>>>>>>");
 
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
 
     }

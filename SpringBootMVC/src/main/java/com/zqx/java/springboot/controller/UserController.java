@@ -29,7 +29,7 @@ public class UserController {
      */
     @RequestMapping("/userList")
     @ResponseBody
-    public String getUserList(Map map){
+    public String getUserList(Map map) {
 
         List<User> userList = userService.getUserList();
         map.put("userList", userList);
@@ -41,12 +41,12 @@ public class UserController {
 
     /**
      * 用户列表(分页)
-     * @param pageNum 页值
+     * @param pageNum  页值
      * @param pageSize 页大小
      */
     @RequestMapping("/userPages")
     @ResponseBody
-    public String getUserList(Map map, @RequestParam(required = false) int pageNum, @RequestParam(required = false) int pageSize){
+    public String getUserList(Map map, @RequestParam(required = false) int pageNum, @RequestParam(required = false) int pageSize) {
 
         List<User> userList = userService.getUserList(pageNum, pageSize);
         map.put("userList", userList);
@@ -59,7 +59,7 @@ public class UserController {
      */
     @RequestMapping("/user")
     @ResponseBody
-    public String getUser(Map map, @RequestParam("name")String name) {
+    public String getUser(Map map, @RequestParam("name") String name) {
         User user = userService.getUserByName(name);
         String userStr = JSON.toJSONString(user);
         return userStr;

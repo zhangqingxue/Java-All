@@ -9,6 +9,7 @@ import com.zqx.java.springboot.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.validation.constraints.Min;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
@@ -31,7 +32,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getUserList(int pageNum, int pageSize) {
+    public List<User> getUserList(@Min(1) int pageNum, int pageSize) {
 //        String sql = "SELECT id, login_name, `password`, city, age, sex FROM USER_INFO";
 //        List<User> users = jdbcTemplate.query(sql, new Object[]{}, new BeanPropertyRowMapper<>(User.class));
         PageHelper.startPage(pageNum, pageSize);
@@ -45,7 +46,8 @@ public class UserServiceImpl implements UserService {
         User user = userDao.getUserByName(name);
         return user;
     }
-    public boolean insertUser(User user){
+
+    public boolean insertUser(User user) {
         String password = user.getPassword();
         try {
             password = (String) SecurityProvider.encodeByMD5(password);
