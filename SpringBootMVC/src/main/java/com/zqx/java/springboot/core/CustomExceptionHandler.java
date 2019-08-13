@@ -9,26 +9,24 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class CustomExceptionHandler {
 
     /**
-     * 处理所有不可知的异常
+     * 处理所有异常
      */
     @ExceptionHandler(Exception.class)
     @ResponseBody
     String handleException(Exception e){
-        System.out.println("error");
-        System.out.println(e.toString());
         System.out.println(e.getMessage());
         return e.getMessage();
 
     }
 
-    /**
-     * 处理所有业务异常
-     */
-    @ExceptionHandler(BusinessException.class)
-    @ResponseBody
-    String handleBusinessException(BusinessException e){
-        System.out.println("BusinessException");
-        return "BusinessException";
-    }
+//    /**
+//     * 处理所有业务异常
+//     */
+//    @ExceptionHandler(BusinessException.class)
+//    @ResponseBody
+//    String handleBusinessException(BusinessException e){
+//        System.out.println("BusinessException");
+//        return "BusinessException";
+//    }
 
 }
