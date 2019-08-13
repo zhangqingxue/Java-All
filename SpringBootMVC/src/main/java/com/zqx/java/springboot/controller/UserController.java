@@ -1,22 +1,25 @@
 package com.zqx.java.springboot.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.zqx.java.springboot.core.BusinessException;
 import com.zqx.java.springboot.entity.User;
 import com.zqx.java.springboot.service.UserService;
 import org.apache.tomcat.util.buf.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.constraints.Min;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
 @Controller
+@Validated
+//@ControllerAdvice
 @RequestMapping("/base")
 public class UserController {
 
@@ -44,9 +47,10 @@ public class UserController {
      * @param pageNum  页值
      * @param pageSize 页大小
      */
+    @ExceptionHandler(BusinessException.class)
     @RequestMapping("/userPages")
     @ResponseBody
-    public String getUserList(Map map, @RequestParam(required = false) int pageNum, @RequestParam(required = false) int pageSize) {
+    public String getUserList(Map map, @Min(1) @RequestParam(required = false) int pageNum, @RequestParam(required = false) int pageSize) {
 
         List<User> userList = userService.getUserList(pageNum, pageSize);
         map.put("userList", userList);

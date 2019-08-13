@@ -22,12 +22,13 @@ public class UserRestController {
         return user;
     }
 
-    /**
+    /**R
      * 占位符的方式传值
      * 前端传递：api/v1/user/lgoin/ZHANG = /login/{userName}
      */
-    @RequestMapping("/login/{userName}")
+    @RequestMapping("/login/{userName}/v2")
     public User login(@PathVariable String userName) {
+        System.out.println(userName);
         return null;
     }
 

@@ -8,6 +8,7 @@ import com.zqx.java.springboot.mapper.UserMapper;
 import com.zqx.java.springboot.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
 import javax.validation.constraints.Min;
 import java.io.UnsupportedEncodingException;
@@ -32,7 +33,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getUserList(@Min(1) int pageNum, int pageSize) {
+    public List<User> getUserList(int pageNum, int pageSize) {
 //        String sql = "SELECT id, login_name, `password`, city, age, sex FROM USER_INFO";
 //        List<User> users = jdbcTemplate.query(sql, new Object[]{}, new BeanPropertyRowMapper<>(User.class));
         PageHelper.startPage(pageNum, pageSize);
