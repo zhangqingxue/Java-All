@@ -19,7 +19,6 @@ import java.util.Map;
 
 @Controller
 @Validated
-//@ControllerAdvice
 @RequestMapping("/base")
 public class UserController {
 
