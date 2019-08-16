@@ -9,7 +9,7 @@ import java.security.NoSuchAlgorithmException;
 public class SecurityProvider {
 
     /**
-     * MD5加解密
+     * MD5加解密,不可逆
      */
     public static Object encodeByMD5(String text) throws NoSuchAlgorithmException, UnsupportedEncodingException {
         MessageDigest digest = MessageDigest.getInstance("MD5");
