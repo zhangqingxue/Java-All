@@ -32,40 +32,6 @@ FastDFS中的文件标识分为两个部分：卷名和文件名，二者缺一�
 
 ![](C:\Users\Administrator\Desktop\tmp\fastdfs图\install.png)
 
-### 谁在用？
-
-有人在生产环境中使用FastDFS吗？
-答案是肯定的。据我所知，截止2012年底至少有25家公司在使用FastDFS，其中有好几家是做网盘的公司。
-其中存储量最大的一家，集群中存储group数有400个，存储服务器超过800台，存储容量达到6PB，文件数超过1亿，Group持续增长中。。。
-以下是使用FastDFS的用户列表：
-  某大型网盘（因对方要求对公司名保密，就不提供名字了。有400个group，存储容量达到了6PB，文件数超过1亿）  
-  UC （http://www.uc.cn/，存储容量超过10TB）
-  支付宝（http://www.alipay.com/）
-  京东商城（http://www.360buy.com/）
-  淘淘搜（http://www.taotaosou.com/）
-  飞信（http://feixin.1008**/）
-  赶集网（http://www.ganji.com/）
-  淘米网（http://www.61.com/）
-  迅雷（http://www.xunlei.com/）
-  蚂蜂窝（http://www.mafengwo.cn/）
-  丫丫网（http://www.iyaya.com/）
-  虹网（[http://3g.ahong.com](http://3g.ahong.com/)）
-  5173（http://www.5173.com/）
-  华夏原创网（http://www.yuanchuang.com/）
-  华师京城教育云平台（http://www.hsjdy.com.cn/）
-  视友网（http://www.cuctv.com/）
-  搜道网（http://www.sodao.com/）
-  58同城（http://www.58.com/）
-  商务联盟网（http://www.biz72.com/）
-  中青网（http://www.youth.cn/）
-  缤丽网 （http://www.binliy.com/）
-  飞视云视频（http://www.freeovp.com/）
-  梦芭莎（http://www.moonbasa.com/）
-  活动帮（[www.eventsboom.com](http://www.eventsboom.com/)）
-  51CTO（http://www.51cto.com/）
-  搜房网（http://www.soufun.com/）
-
-
 
 ### 架构
 
