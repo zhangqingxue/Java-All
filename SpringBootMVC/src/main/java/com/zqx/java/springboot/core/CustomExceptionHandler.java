@@ -1,6 +1,5 @@
 package com.zqx.java.springboot.core;
 
-import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -13,9 +12,10 @@ public class CustomExceptionHandler {
      */
     @ExceptionHandler(Exception.class)
     @ResponseBody
-    String handleException(Exception e){
+    Response handleException(Exception e) {
         System.out.println(e.getMessage());
-        return e.getMessage();
+        Response response = new Response(Response.NORMAL, e.getMessage());
+        return response;
 
     }
 

@@ -19,7 +19,7 @@ public class UserRestController {
     private UserService userService;
 
     @RequestMapping("/login")
-    public User login(@NotNull(message = "用户名不能为空") String userName, @NotNull(message = "密码不能为空") String password) {
+    public User login(@NotNull(message = "用户名不能为空") String userName, @NotNull String password) {
         User user = userService.getUser(userName, password);
         return user;
     }

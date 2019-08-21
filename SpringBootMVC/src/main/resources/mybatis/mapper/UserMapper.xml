@@ -19,7 +19,7 @@
         SELECT id, login_name, `password`, city, age, sex FROM USER_INFO WHERE login_name = #{userName}
     </select>
     <select id="getUser" parameterType="string" resultType="com.zqx.java.springboot.entity.User">
-        SELECT id, login_name, `password`, city, age, sex FROM USER_INFO WHERE login_name = #{userName} AND `password` = #{password}
+        SELECT id, login_name AS loginName, `password`, city, age, sex FROM USER_INFO WHERE login_name = #{userName} AND `password` = #{password}
     </select>
 
     <insert id="insertUser" parameterType="com.zqx.java.springboot.entity.User">
