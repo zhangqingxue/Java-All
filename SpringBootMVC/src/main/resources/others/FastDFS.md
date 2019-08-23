@@ -515,6 +515,7 @@ ln -s /var/data/fastdfs-storage/store/data/  /var/data/fastdfs-storage/store/dat
 
 ```
 add_header Content-Disposition "attachment;filename=$arg_attname";
+示例：http://192.168.199.138/group1/M00/00/00/wKjHil1fViyASVhWAAZRSpPCt4U501.jpg?attname=tomcat.png
 ```
 
 
