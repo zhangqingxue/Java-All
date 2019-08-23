@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.constraints.NotNull;
 
+/**
+ * 用户相关
+ */
 @RestController
 @Validated
 @RequestMapping("/api/v1/user")
