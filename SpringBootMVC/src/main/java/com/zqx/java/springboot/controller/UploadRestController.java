@@ -3,12 +3,12 @@ package com.zqx.java.springboot.controller;
 import com.github.tobato.fastdfs.domain.fdfs.MetaData;
 import com.github.tobato.fastdfs.domain.fdfs.StorePath;
 import com.github.tobato.fastdfs.domain.upload.FastImageFile;
+import com.github.tobato.fastdfs.domain.upload.ThumbImage;
 import com.github.tobato.fastdfs.service.FastFileStorageClient;
 import com.zqx.java.springboot.utils.DateUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -17,7 +17,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -32,15 +31,24 @@ public class UploadRestController {
     @Autowired
     private FastFileStorageClient client; // FastDFS集成接口
 
-    @RequestMapping("/upload/headphoto")
-    public void uploadHeadPhoto(MultipartFile file) {
+    /**
+     * 上传图片不带缩略图
+     * @param file MultipartFile文件
+     * @param thumbnailIfDefault 0=不产生缩略图，1=产生缩略图并上传 默认0
+     */
+    @RequestMapping("/upload/images")
+    public void uploadImages(MultipartFile file, int thumbnailIfDefault) {
         try {
             InputStream inputStream = file.getInputStream();
             int fileSize = file.getBytes().length;
             String fileExtName = FilenameUtils.getExtension(file.getOriginalFilename());
             Set<MetaData> metaDataSet = createMetaData();
             metaDataSet.add(new MetaData("fileName", file.getOriginalFilename()));
-            FastImageFile image = new FastImageFile(inputStream, fileSize, fileExtName, metaDataSet, null);
+            ThumbImage thumbImage = null;
+            if (thumbnailIfDefault == 1) {
+                thumbImage = new ThumbImage(150, 150);
+            }
+            FastImageFile image = new FastImageFile(inputStream, fileSize, fileExtName, metaDataSet, thumbImage);
             String groupName = image.getGroupName();
             StorePath path = client.uploadImage(image);
             System.out.println(path.getFullPath());
@@ -55,6 +63,9 @@ public class UploadRestController {
      */
     @RequestMapping("/delete")
     public void deleteImage(String filePath){
+
+        /** 此处获取存储位置信息 */
+
         client.deleteFile(filePath);
     }
 
