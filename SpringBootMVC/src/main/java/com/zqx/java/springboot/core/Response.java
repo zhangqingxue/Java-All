@@ -13,8 +13,9 @@ import javax.validation.constraints.Size;
 @Validated
 public class Response {
 
-    public static final int NORMAL = 1000;
-    public static final int ERROR = 1001;
+    public static final int REQUEST_NORMAL = 1000;
+    public static final int REQUEST_ERROR = 1001;
+    public static final int SERVICE_ERROR = 1001;
 
     public Response(){}
 
@@ -24,7 +25,7 @@ public class Response {
     }
 
     /**
-     * 状态码： 1000 正常; 1001 异常
+     * 状态码： 1000 请求正常; 1001 请求错误;  5001 服务器错误
      */
     @NotNull
     @Min(1000)
