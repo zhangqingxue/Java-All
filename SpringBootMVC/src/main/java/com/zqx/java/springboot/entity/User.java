@@ -1,15 +1,24 @@
 package com.zqx.java.springboot.entity;
 
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.validation.annotation.Validated;
+
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+
 /**
  * 用户基本信息
  */
+//@Validated
 public class User {
 
     private int id;
     private String loginName;
     private String password;
     private String city;
+
+    @Min(value = 18,message = "未成年禁止入内")
     private int age;
     private int sex;
 
