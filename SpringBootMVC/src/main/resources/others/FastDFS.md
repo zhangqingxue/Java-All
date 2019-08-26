@@ -271,6 +271,8 @@ mkdir -p /var/data/fastdfs-tracker
 
 ```
 /etc/init.d/fdfs_trackerd start
+
+service fdfs_trackerd start
 ```
 
 启动成功后，配置文件中base_path指向的目录中出现FastDFS服务相关数据目录（data目录、logs目录）
@@ -322,6 +324,8 @@ tracker_server=192.168.150.11:22122 -> tracker_server=tracker服务IP:22122
 
 ```
 /etc/init.d/fdfs_storaged start
+
+service fdfs_storaged start
 ```
 
 
