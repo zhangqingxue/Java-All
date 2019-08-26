@@ -5,19 +5,25 @@ import com.github.tobato.fastdfs.domain.fdfs.StorePath;
 import com.github.tobato.fastdfs.domain.upload.FastImageFile;
 import com.github.tobato.fastdfs.domain.upload.ThumbImage;
 import com.github.tobato.fastdfs.service.FastFileStorageClient;
+import com.zqx.java.springboot.entity.User;
 import com.zqx.java.springboot.utils.DateUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -36,8 +42,8 @@ public class UploadRestController {
      * @param file MultipartFile文件
      * @param thumbnailIfDefault 0=不产生缩略图，1=产生缩略图并上传 默认0
      */
-    @RequestMapping("/upload/images")
-    public void uploadImages(MultipartFile file, int thumbnailIfDefault) {
+    @RequestMapping(value = "/upload/images", method = RequestMethod.POST)
+    public void uploadImages(MultipartFile file, @Min(0)@Max(1) int thumbnailIfDefault) {
         try {
             InputStream inputStream = file.getInputStream();
             int fileSize = file.getBytes().length;
