@@ -6,14 +6,15 @@ import org.springframework.validation.annotation.Validated;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 /**
  * 用户基本信息
  */
-//@Validated
 public class User {
 
     private int id;
+    @NotNull(message = "{user.loginName.null}")
     private String loginName;
     private String password;
     private String city;
