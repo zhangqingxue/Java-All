@@ -2,6 +2,8 @@ package com.zqx.java.springboot.controller;
 
 import com.github.tobato.fastdfs.domain.fdfs.MetaData;
 import com.github.tobato.fastdfs.domain.fdfs.StorePath;
+import com.github.tobato.fastdfs.domain.proto.storage.DownloadByteArray;
+import com.github.tobato.fastdfs.domain.upload.FastFile;
 import com.github.tobato.fastdfs.domain.upload.FastImageFile;
 import com.github.tobato.fastdfs.domain.upload.ThumbImage;
 import com.github.tobato.fastdfs.service.FastFileStorageClient;
@@ -11,14 +13,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
@@ -40,9 +42,8 @@ public class UploadRestController {
      * @param file MultipartFile文件
      * @param thumbnailIfDefault 0=不产生缩略图，1=产生缩略图并上传 默认0
      */
-    @RequestMapping(value = "/upload/images", method = RequestMethod.POST)
-    public void uploadImages(MultipartFile file, @Min(0) @Max(1) @NotNull Integer thumbnailIfDefault) {
-        System.out.println(thumbnailIfDefault);
+    @RequestMapping(value = "/uploads/images", method = RequestMethod.POST)
+    public String uploadImages(MultipartFile file, @Min(0) @Max(1) @RequestParam(defaultValue = "0") int thumbnailIfDefault) {
         try {
             InputStream inputStream = file.getInputStream();
             int fileSize = file.getBytes().length;
@@ -57,9 +58,41 @@ public class UploadRestController {
             String groupName = image.getGroupName();
             StorePath path = client.uploadImage(image);
             System.out.println(path.getFullPath());
+            return path.getFullPath();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return "error";
+    }
+
+    @RequestMapping("/uploads/files")
+    public String uploadFiles(@NotNull MultipartFile file) {
+        try {
+            String fileExtName = FilenameUtils.getExtension(file.getOriginalFilename());
+            Set<MetaData> metaDataSet = createMetaData();
+            metaDataSet.add(new MetaData("fileName", file.getOriginalFilename()));
+            FastFile fastFile = new FastFile(file.getInputStream(), file.getBytes().length, fileExtName, metaDataSet);
+            StorePath path = client.uploadFile(fastFile);
+            System.out.println(path.getFullPath());
+            return path.getPath();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "error";
+    }
+
+    @RequestMapping("/downloads/files")
+    public String downloadFiles(String filePath) {
+        DownloadByteArray array = new DownloadByteArray();
+        byte[] content = client.downloadFile("group1", filePath, array);
+        try {
+            FileOutputStream fos = new FileOutputStream("D://zhang.txt");
+            fos.write(content, 0, content.length);
+            return "upload success";
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "upload error";
     }
 
     /**
@@ -67,11 +100,17 @@ public class UploadRestController {
      * @param filePath StorePath.getFullPath() = group1/M00/00/00/wKjHil1fm_eAL-obAAh53vCw0rs686.png
      */
     @RequestMapping("/delete")
-    public void deleteImage(String filePath) {
+    public String deleteImage(String filePath) {
 
         /** 此处获取存储位置信息 */
 
-        client.deleteFile(filePath);
+        try {
+            client.deleteFile(filePath);
+            return "delete success";
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "delete error";
     }
 
     private Set<MetaData> createMetaData() {
