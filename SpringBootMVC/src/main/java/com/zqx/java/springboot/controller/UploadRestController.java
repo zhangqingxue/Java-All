@@ -20,7 +20,9 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import java.io.*;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
@@ -43,7 +45,7 @@ public class UploadRestController {
      * @param thumbnailIfDefault 0=不产生缩略图，1=产生缩略图并上传 默认0
      */
     @RequestMapping(value = "/uploads/images", method = RequestMethod.POST)
-    public String uploadImages(MultipartFile file, @Min(0) @Max(1) @RequestParam(defaultValue = "0") int thumbnailIfDefault) {
+    public String uploadImages(MultipartFile file, @Min(value = 0, message = "{field.min.err}0") @Max(value = 1, message = "{field.max.err}1") @RequestParam(defaultValue = "0") int thumbnailIfDefault) {
         try {
             InputStream inputStream = file.getInputStream();
             int fileSize = file.getBytes().length;
