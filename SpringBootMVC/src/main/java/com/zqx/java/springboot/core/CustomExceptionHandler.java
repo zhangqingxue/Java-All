@@ -1,5 +1,6 @@
 package com.zqx.java.springboot.core;
 
+import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -22,7 +23,7 @@ public class CustomExceptionHandler {
     }
 
     /**
-     * 处理所有 @Valid 注解异常
+     * 处理所有 @Valid @RequestBody 注解异常
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseBody
@@ -33,6 +34,25 @@ public class CustomExceptionHandler {
         Response response = new Response(Response.REQUEST_ERROR, error.getDefaultMessage());
         return response;
     }
+
+
+
+    /**
+     * 处理所有@Validated注解在方法参数上的异常(@Validated / @Valid User users)
+     */
+    @ExceptionHandler(BindException.class)
+    @ResponseBody
+    Response bindExceptionHandler(BindException e){
+        System.out.println("BindException");
+        FieldError error = e.getBindingResult().getFieldErrors().get(0);
+        System.out.println(error.getField());
+        System.out.println(error.getObjectName());
+        System.out.println(error.getDefaultMessage());
+        Response response = new Response(Response.REQUEST_ERROR, error.getDefaultMessage());
+        return response;
+    }
+
+
 
 //    /**
 //     * 处理所有 @Validated 注解异常, 目前注释掉 先用exceptionHandler()去处理
