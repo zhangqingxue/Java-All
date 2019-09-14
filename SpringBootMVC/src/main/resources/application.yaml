@@ -22,3 +22,18 @@ fdfs:
 #    max-idle-per-key: 10
 #    #每个key对应的连接池最小空闲连接数
 #    max_idle_per_key: 5
+
+spring:
+  redis:
+    database: 0
+    timeout: 1000
+    jedis:
+      pool:
+        max-active: -1
+        max-idle: 3
+        max-wait: -1
+        min-idle: 1
+    cluster:
+      nodes:
+        - 172.16.94.205:6379
+        - 172.16.94.205:6380

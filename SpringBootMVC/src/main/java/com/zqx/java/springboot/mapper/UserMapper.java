@@ -16,5 +16,5 @@ public interface UserMapper {
 
     boolean insertUser(User user);
 
-    User getUser (String userName, String password);
+    User getUser(String userName, String password);
 }

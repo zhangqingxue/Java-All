@@ -15,13 +15,26 @@ public class Response {
 
     public static final int REQUEST_NORMAL = 1000;
     public static final int REQUEST_ERROR = 1001;
-    public static final int SERVICE_ERROR = 1001;
+    public static final int SERVICE_ERROR = 5001;
 
     public Response(){}
 
     public Response(int code, String description){
         this.code = code;
         this.description = description;
+    }
+
+    public Response append(int code) {
+        this.setCode(code);
+        return this;
+    }
+    public Response append(String description) {
+        this.setDescription(description);
+        return this;
+    }
+    public Response append(Object result) {
+        this.setResult(result);
+        return this;
     }
 
     /**

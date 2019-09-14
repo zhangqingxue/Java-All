@@ -1,19 +1,18 @@
 package com.zqx.java.springboot.service;
 
 import com.zqx.java.springboot.entity.User;
-import org.springframework.validation.annotation.Validated;
 
-import javax.validation.constraints.Min;
+import java.sql.SQLException;
 import java.util.List;
 
 public interface UserService {
 
-    List<User> getUserList();
-    List<User> getUserList(int pageNum, int pageSize);
+    List<User> getUserList() throws SQLException;
+    List<User> getUserList(int pageNum, int pageSize) throws SQLException;
 
-    User getUserByName(String name);
+    User getUserByName(String name) throws SQLException;
 
-    boolean insertUser(User user);
+    boolean insertUser(User user) throws SQLException;
 
-    User getUser(String userName, String password);
+    User getUser(String userName, String password) throws SQLException;
 }

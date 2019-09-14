@@ -5,7 +5,6 @@ import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
-import org.springframework.stereotype.Component;
 
 /**
  * AOP代理：面向切面
@@ -31,7 +30,7 @@ public class DefaultAspectJProxyFactory {
 
     @After("defaultAop()")
     public void doAfterAction(JoinPoint joinPoint) {
-        System.out.println("doAfterAction");
+        System.out.println("----------doAfterAction----------");
     }
 
 }

@@ -8,7 +8,10 @@ import org.apache.tomcat.util.buf.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.Min;
@@ -31,7 +34,7 @@ public class UserController {
      */
     @RequestMapping("/userList")
     @ResponseBody
-    public String getUserList(Map map) {
+    public String getUserList(Map map) throws Exception {
 
         List<User> userList = userService.getUserList();
         map.put("userList", userList);
@@ -49,7 +52,7 @@ public class UserController {
     @ExceptionHandler(BusinessException.class)
     @RequestMapping("/userPages")
     @ResponseBody
-    public String getUserList(Map map, @Min(1) @RequestParam(required = false) int pageNum, @RequestParam(required = false) int pageSize) {
+    public String getUserList(Map map, @Min(1) @RequestParam(required = false) int pageNum, @RequestParam(required = false) int pageSize) throws Exception {
 
         List<User> userList = userService.getUserList(pageNum, pageSize);
         map.put("userList", userList);
@@ -62,7 +65,7 @@ public class UserController {
      */
     @RequestMapping("/user")
     @ResponseBody
-    public String getUser(Map map, @RequestParam("name") String name) {
+    public String getUser(Map map, @RequestParam("name") String name) throws Exception {
         User user = userService.getUserByName(name);
         String userStr = JSON.toJSONString(user);
         return userStr;
@@ -73,7 +76,7 @@ public class UserController {
      */
     @RequestMapping("/insert")
 //    @ResponseBody
-    public String insertUser(Map map, User user) {
+    public String insertUser(Map map, User user) throws Exception {
         boolean isOk = userService.insertUser(user);
         if (isOk) {
             return "index";

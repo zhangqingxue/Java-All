@@ -11,19 +11,20 @@
         <result column="sex" property="sex"/>
     </resultMap>
 
+
     <select id="findAll" resultMap="userMap">
-        SELECT id, login_name, `password`, city, age, sex FROM USER_INFO
+        SELECT id, login_name, `password` FROM USER_INFO
     </select>
 
     <select id="getUserByName" parameterType="string" resultMap="userMap">
-        SELECT id, login_name, `password`, city, age, sex FROM USER_INFO WHERE login_name = #{userName}
+        SELECT id, login_name, `password` FROM USER_INFO WHERE login_name = #{userName}
     </select>
     <select id="getUser" parameterType="string" resultType="com.zqx.java.springboot.entity.User">
-        SELECT id, login_name AS loginName, `password`, city, age, sex FROM USER_INFO WHERE login_name = #{userName} AND `password` = #{password}
+        SELECT id, login_name AS loginName, `password` FROM USER_INFO WHERE login_name = #{userName} AND `password` = #{password}
     </select>
 
     <insert id="insertUser" parameterType="com.zqx.java.springboot.entity.User">
-        INSERT INTO USER_INFO(id, login_name, `password`, city, age, sex)  VALUES (DEFAULT, #{loginName}, #{password}, #{city}, #{age}, #{sex})
+        INSERT INTO USER_INFO(id, login_name, `password`)  VALUES (DEFAULT, #{loginName}, #{password})
     </insert>
 
 </mapper>

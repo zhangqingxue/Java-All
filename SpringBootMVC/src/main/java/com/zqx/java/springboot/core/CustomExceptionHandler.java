@@ -1,11 +1,14 @@
 package com.zqx.java.springboot.core;
 
+import org.mybatis.spring.MyBatisSystemException;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.sql.SQLException;
 
 @ControllerAdvice
 public class CustomExceptionHandler {
@@ -23,11 +26,35 @@ public class CustomExceptionHandler {
     }
 
     /**
+     * 处理SQL异常
+     */
+    @ExceptionHandler(SQLException.class)
+    @ResponseBody
+    Response sqlExceptionHandler(SQLException e) {
+        System.out.println(e.getMessage());
+        Response response = new Response(Response.SERVICE_ERROR, e.getMessage());
+        return response;
+
+    }
+
+    /**
+     * 处理SQL异常
+     */
+    @ExceptionHandler(MyBatisSystemException.class)
+    @ResponseBody
+    Response MybatisSysExceptionHandler(MyBatisSystemException e) {
+        System.out.println(e.getMessage());
+        Response response = new Response(Response.SERVICE_ERROR, e.getMessage());
+        return response;
+
+    }
+
+    /**
      * 处理所有 @Valid @RequestBody 注解异常
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseBody
-    Response validExceptionHandler(MethodArgumentNotValidException  e){
+    Response validExceptionHandler(MethodArgumentNotValidException e){
         System.out.println("MethodArgumentNotValidException");
         FieldError error = e.getBindingResult().getFieldErrors().get(0);
         System.out.println(error.getDefaultMessage());

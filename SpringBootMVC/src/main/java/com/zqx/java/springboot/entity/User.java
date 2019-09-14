@@ -1,17 +1,14 @@
 package com.zqx.java.springboot.entity;
 
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.validation.annotation.Validated;
-
-import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 /**
  * 用户基本信息
  */
-public class User {
+public class User implements Serializable {
 
     private int id;
     @NotNull(message = "{user.loginName.null}")
