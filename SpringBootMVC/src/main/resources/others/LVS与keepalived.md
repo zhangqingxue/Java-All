@@ -44,23 +44,14 @@ node01:
 ```
 
 
-1）D-NAT技术：
+1）D-NAT技术
 
-![1566990905473](D:\idea-workspace\project\SpringBootMVC\src\main\resources\others\assets\1566990905473.png)
+2）DR技术
 
-
-
-2）DR技术：
-
-![1566990972507](D:\idea-workspace\project\SpringBootMVC\src\main\resources\others\assets\1566990972507.png)
+3）TUN隧道技术
 
 
-
-3）TUN隧道技术：
-
-![1566991015361](D:\idea-workspace\project\SpringBootMVC\src\main\resources\others\assets\1566991015361.png)
-
-
+````
 keepalived实验：
 主机： node01~node04
 
@@ -161,4 +152,4 @@ vrrp_instance VI_1 {                           定义master
     }
 
 }
-	
+````	
