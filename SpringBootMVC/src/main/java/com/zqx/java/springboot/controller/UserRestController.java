@@ -1,5 +1,6 @@
 package com.zqx.java.springboot.controller;
 
+import com.sun.xml.internal.ws.api.message.stream.InputStreamMessage;
 import com.zqx.java.springboot.core.NotNullOrEmpty;
 import com.zqx.java.springboot.core.Response;
 import com.zqx.java.springboot.entity.User;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.constraints.NotNull;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.lang.ref.SoftReference;
 import java.util.Stack;
 
