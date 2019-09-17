@@ -1,4 +1,4 @@
-# redis
+# redis 和 bloom filter 安装教程
 
 ## 介绍
 
