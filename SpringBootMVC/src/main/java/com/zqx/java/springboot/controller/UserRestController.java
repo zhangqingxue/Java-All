@@ -1,6 +1,5 @@
 package com.zqx.java.springboot.controller;
 
-import com.sun.xml.internal.ws.api.message.stream.InputStreamMessage;
 import com.zqx.java.springboot.core.NotNullOrEmpty;
 import com.zqx.java.springboot.core.Response;
 import com.zqx.java.springboot.entity.User;
@@ -9,6 +8,7 @@ import io.swagger.annotations.Api;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,10 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.constraints.NotNull;
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.lang.ref.SoftReference;
-import java.util.Stack;
 
 /**
  * 用户相关
@@ -37,13 +33,27 @@ public class UserRestController {
     private UserService userService;
 
     @Autowired
+    private StringRedisTemplate stringRedisTemplate;
+
+    @Autowired
     private RedisTemplate redisTemplate;
 
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public Response login(HttpServletRequest request, @NotNullOrEmpty String userName, @NotNull String password) throws Exception {
-//        SetOperations opsForSet = redisTemplate.opsForSet();
-//        opsForSet.add("userName", userName);
+
+        String k2 = stringRedisTemplate.opsForValue().get("k2");
+        System.out.println(k2);
+
+        String k1 = stringRedisTemplate.opsForValue().get("k1");
+        System.out.println(k1);
+
+        String k11 = stringRedisTemplate.opsForValue().get("1");
+        System.out.println(k11);
+
+        String uuuuuuuu = stringRedisTemplate.opsForValue().get("uuuuuuuu");
+        System.out.println(uuuuuuuu);
+
         HttpSession session = request.getSession();
         System.out.println("login");
         User user = userService.getUser(userName, password);
