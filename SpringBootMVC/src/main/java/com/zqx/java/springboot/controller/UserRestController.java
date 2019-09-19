@@ -42,6 +42,7 @@ public class UserRestController {
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public Response login(HttpServletRequest request, @NotNullOrEmpty String userName, @NotNull String password) throws Exception {
 
+        /*
         String k2 = stringRedisTemplate.opsForValue().get("k2");
         System.out.println(k2);
 
@@ -53,6 +54,7 @@ public class UserRestController {
 
         String uuuuuuuu = stringRedisTemplate.opsForValue().get("uuuuuuuu");
         System.out.println(uuuuuuuu);
+        */
 
         HttpSession session = request.getSession();
         System.out.println("login");
