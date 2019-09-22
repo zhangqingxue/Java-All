@@ -4,6 +4,7 @@ import com.zqx.java.springboot.core.NotNullOrEmpty;
 import com.zqx.java.springboot.core.Response;
 import com.zqx.java.springboot.entity.User;
 import com.zqx.java.springboot.service.UserService;
+import io.lettuce.core.cluster.api.sync.RedisClusterCommands;
 import io.swagger.annotations.Api;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,9 +39,19 @@ public class UserRestController {
     @Autowired
     private RedisTemplate redisTemplate;
 
+    @Autowired
+    private RedisClusterCommands pubSubCommands;
+
+//    @Autowired
+//    private RedisPubSubCommands pubSubCommands;
+
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public Response login(HttpServletRequest request, @NotNullOrEmpty String userName, @NotNull String password) throws Exception {
+        HttpSession session = request.getSession();
+        session.setAttribute("sessionId", session.getId());
+
+
 
         /*
         String k2 = stringRedisTemplate.opsForValue().get("k2");
@@ -56,8 +67,7 @@ public class UserRestController {
         System.out.println(uuuuuuuu);
         */
 
-        HttpSession session = request.getSession();
-        System.out.println("login");
+        System.out.println(request.getSession().getId());
         User user = userService.getUser(userName, password);
         Response response = new Response(5001, "SERVERERROR");
         if(user != null && StringUtils.isNotEmpty(user.getLoginName())){

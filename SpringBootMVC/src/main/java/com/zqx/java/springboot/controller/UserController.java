@@ -8,12 +8,10 @@ import org.apache.tomcat.util.buf.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.Min;
 import java.io.File;
 import java.io.IOException;
@@ -32,9 +30,12 @@ public class UserController {
     /**
      * 用户列表(不分页)
      */
-    @RequestMapping("/userList")
+    @RequestMapping(value = "/userList")
     @ResponseBody
-    public String getUserList(Map map) throws Exception {
+    public String getUserList(HttpServletRequest request, Map map) throws Exception {
+
+        String id = request.getSession(true).getId();
+        System.out.println(id);
 
         List<User> userList = userService.getUserList();
         map.put("userList", userList);
