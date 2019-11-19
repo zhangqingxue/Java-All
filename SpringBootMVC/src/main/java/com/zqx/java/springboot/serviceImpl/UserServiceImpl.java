@@ -6,6 +6,7 @@ import com.zqx.java.springboot.core.SecurityProvider;
 import com.zqx.java.springboot.entity.User;
 import com.zqx.java.springboot.mapper.UserMapper;
 import com.zqx.java.springboot.service.UserService;
+import org.apache.dubbo.config.annotation.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -15,7 +16,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 @Component
-//@Service(version = "1.0.1", interfaceClass = UserService.class, timeout = 10000)
+//@Service(version = "1.0.1", interfaceClass = UserService.class, timeout = 10000, loadbalance = "roundrobin")
 public class UserServiceImpl implements UserService {
 
     @Autowired

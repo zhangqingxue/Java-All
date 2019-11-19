@@ -3,6 +3,7 @@ package com.zqx.java.springboot.core;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
+import javax.security.auth.login.CredentialException;
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
@@ -23,6 +24,10 @@ public class CorsFilter implements Filter {
 
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         HttpServletRequest request = (HttpServletRequest) servletRequest;
+
+//        String id = request.getSession().getId();
+//        System.out.println(id);
+//        request.getSession().setAttribute("sessionid", "springsessoionIds");
 
         // 指定允许其他域名访问
         response.setHeader("Access-Control-Allow-Origin", "*");

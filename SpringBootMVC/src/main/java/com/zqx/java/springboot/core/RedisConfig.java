@@ -43,7 +43,7 @@ public class RedisConfig {
         return redisTemplate;
     }
 
-    @Bean
+    /*@Bean
     RedisClusterCommands<String, String> redisCommands() {
         List<RedisURI> uriList = new ArrayList<>();
 //        nodes.forEach(node -> {
@@ -59,7 +59,7 @@ public class RedisConfig {
         RedisClusterCommands<String, String> syncCommands = connection.sync();
 
         return syncCommands;
-    }
+    }*/
 
 
 }

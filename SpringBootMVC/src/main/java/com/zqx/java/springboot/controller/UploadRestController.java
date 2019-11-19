@@ -1,5 +1,7 @@
 package com.zqx.java.springboot.controller;
 
+import com.alibaba.excel.EasyExcelFactory;
+import com.alibaba.excel.read.builder.ExcelReaderBuilder;
 import com.github.tobato.fastdfs.domain.fdfs.MetaData;
 import com.github.tobato.fastdfs.domain.fdfs.StorePath;
 import com.github.tobato.fastdfs.domain.proto.storage.DownloadByteArray;
@@ -20,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -38,6 +41,12 @@ public class UploadRestController {
 
     @Autowired
     private FastFileStorageClient client; // FastDFS集成接口
+
+    @RequestMapping(value = "/export", method = RequestMethod.POST)
+    public void exportExcel(MultipartFile file) throws Exception{
+        ExcelReaderBuilder builder = EasyExcelFactory.read(file.getInputStream());
+
+    }
 
     /**
      * 上传图片不带缩略图

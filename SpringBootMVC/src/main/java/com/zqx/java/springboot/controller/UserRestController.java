@@ -10,6 +10,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,8 +40,8 @@ public class UserRestController {
     @Autowired
     private RedisTemplate redisTemplate;
 
-    @Autowired
-    private RedisClusterCommands pubSubCommands;
+//    @Autowired
+//    private RedisClusterCommands pubSubCommands;
 
 //    @Autowired
 //    private RedisPubSubCommands pubSubCommands;
@@ -49,8 +50,9 @@ public class UserRestController {
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public Response login(HttpServletRequest request, @NotNullOrEmpty String userName, @NotNull String password) throws Exception {
         HttpSession session = request.getSession();
-        session.setAttribute("sessionId", session.getId());
+        session.setAttribute("sessionId", "xxxxxxxxx");
 
+//        HttpStatus.TOO_MANY_REQUESTS;
 
 
         /*
