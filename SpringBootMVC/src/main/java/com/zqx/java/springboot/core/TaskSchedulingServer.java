@@ -11,6 +11,10 @@ public class TaskSchedulingServer {
     @Value("${scheduled.executeIfDefault}")
     boolean executeIfDefault;
 
+    /**
+     * {@link org.springframework.scheduling.annotation.Async} 指定自定义MyAsyncConfigurer类中指定的executor线程池
+     * 也可以通过value属性指定特定线程池
+     */
     @Async
     @Scheduled(cron = "${scheduled.executeCron}")
     public void execute() {
