@@ -1,16 +1,14 @@
 package com.zqx.java.springboot.controller;
 
+import com.zqx.java.springboot.core.APIResponseResult;
 import com.zqx.java.springboot.core.NotNullOrEmpty;
-import com.zqx.java.springboot.core.Response;
 import com.zqx.java.springboot.entity.User;
 import com.zqx.java.springboot.service.UserService;
-import io.lettuce.core.cluster.api.sync.RedisClusterCommands;
 import io.swagger.annotations.Api;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,7 +46,7 @@ public class UserRestController {
 
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public Response login(HttpServletRequest request, @NotNullOrEmpty String userName, @NotNull String password) throws Exception {
+    public APIResponseResult login(HttpServletRequest request, @NotNullOrEmpty String userName, @NotNull String password) throws Exception {
         HttpSession session = request.getSession();
         session.setAttribute("sessionId", "xxxxxxxxx");
 
@@ -71,16 +69,11 @@ public class UserRestController {
 
         System.out.println(request.getSession().getId());
         User user = userService.getUser(userName, password);
-        Response response = new Response(5001, "SERVERERROR");
         if(user != null && StringUtils.isNotEmpty(user.getLoginName())){
-            response.setCode(1000);
-            response.setDescription("OK");
-            response.setResult(user);
+            return APIResponseResult.ofSuccess(user);
         }else{
-            response.setCode(1001);
-            response.setDescription("ERROR");
+           return APIResponseResult.ofFail();
         }
-        return response;
     }
 
     /**R

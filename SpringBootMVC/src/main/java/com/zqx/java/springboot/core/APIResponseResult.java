@@ -11,30 +11,28 @@ import javax.validation.constraints.Size;
  * 响应报文对象
  */
 @Validated
-public class Response {
+public class APIResponseResult {
 
     public static final int REQUEST_NORMAL = 1000;
     public static final int REQUEST_ERROR = 1001;
     public static final int SERVICE_ERROR = 5001;
 
-    public Response(){}
-
-    public Response(int code, String description){
+    private APIResponseResult(int code,Object result,  String description){
         this.code = code;
+        this.result = result;
         this.description = description;
     }
 
-    public Response append(int code) {
-        this.setCode(code);
-        return this;
+    public static APIResponseResult ofSuccess(Object result) {
+        return new APIResponseResult(1000, result, null);
     }
-    public Response append(String description) {
-        this.setDescription(description);
-        return this;
+
+    public static APIResponseResult ofFail(){
+        return new APIResponseResult(REQUEST_ERROR, null, "请求错误");
     }
-    public Response append(Object result) {
-        this.setResult(result);
-        return this;
+
+    public static APIResponseResult ofFail(int code, String description) {
+        return new APIResponseResult(code, null, description);
     }
 
     /**

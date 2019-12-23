@@ -18,11 +18,9 @@ public class CustomExceptionHandler {
      */
     @ExceptionHandler(Exception.class)
     @ResponseBody
-    Response exceptionHandler(Exception e) {
+    APIResponseResult exceptionHandler(Exception e) {
         System.out.println(e.getMessage());
-        Response response = new Response(Response.REQUEST_ERROR, e.getMessage());
-        return response;
-
+        return APIResponseResult.ofFail(APIResponseResult.REQUEST_ERROR, e.getMessage());
     }
 
     /**
@@ -30,10 +28,9 @@ public class CustomExceptionHandler {
      */
     @ExceptionHandler(SQLException.class)
     @ResponseBody
-    Response sqlExceptionHandler(SQLException e) {
+    APIResponseResult sqlExceptionHandler(SQLException e) {
         System.out.println(e.getMessage());
-        Response response = new Response(Response.SERVICE_ERROR, e.getMessage());
-        return response;
+        return APIResponseResult.ofFail(APIResponseResult.REQUEST_ERROR, e.getMessage());
 
     }
 
@@ -42,11 +39,9 @@ public class CustomExceptionHandler {
      */
     @ExceptionHandler(MyBatisSystemException.class)
     @ResponseBody
-    Response MybatisSysExceptionHandler(MyBatisSystemException e) {
+    APIResponseResult MybatisSysExceptionHandler(MyBatisSystemException e) {
         System.out.println(e.getMessage());
-        Response response = new Response(Response.SERVICE_ERROR, e.getMessage());
-        return response;
-
+        return APIResponseResult.ofFail(APIResponseResult.REQUEST_ERROR, e.getMessage());
     }
 
     /**
@@ -54,12 +49,11 @@ public class CustomExceptionHandler {
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseBody
-    Response validExceptionHandler(MethodArgumentNotValidException e){
+    APIResponseResult validExceptionHandler(MethodArgumentNotValidException e){
         System.out.println("MethodArgumentNotValidException");
         FieldError error = e.getBindingResult().getFieldErrors().get(0);
         System.out.println(error.getDefaultMessage());
-        Response response = new Response(Response.REQUEST_ERROR, error.getDefaultMessage());
-        return response;
+        return APIResponseResult.ofFail(APIResponseResult.REQUEST_ERROR, e.getMessage());
     }
 
 
@@ -69,14 +63,13 @@ public class CustomExceptionHandler {
      */
     @ExceptionHandler(BindException.class)
     @ResponseBody
-    Response bindExceptionHandler(BindException e){
+    APIResponseResult bindExceptionHandler(BindException e){
         System.out.println("BindException");
         FieldError error = e.getBindingResult().getFieldErrors().get(0);
         System.out.println(error.getField());
         System.out.println(error.getObjectName());
         System.out.println(error.getDefaultMessage());
-        Response response = new Response(Response.REQUEST_ERROR, error.getDefaultMessage());
-        return response;
+        return APIResponseResult.ofFail(APIResponseResult.REQUEST_ERROR, e.getMessage());
     }
 
 
@@ -86,7 +79,7 @@ public class CustomExceptionHandler {
 //     */
 //    @ExceptionHandler(ConstraintViolationException.class)
 //    @ResponseBody
-//    Response validatedExceptionHandler(ConstraintViolationException e){
+//    APIResponseResult validatedExceptionHandler(ConstraintViolationException e){
 //        System.out.println("MethodArgumentNotValidException");
 //        Iterator<ConstraintViolation<?>> error = e.getConstraintViolations().iterator();
 //        while (error.hasNext()) {
@@ -95,8 +88,7 @@ public class CustomExceptionHandler {
 //            System.out.println(next.getConstraintDescriptor());
 //            System.out.println(next.getMessage());
 //        }
-//        Response response = new Response(Response.REQUEST_ERROR, e.toString());
-//        return response;
+//        return APIResponseResult.ofFail(APIResponseResult.REQUEST_ERROR, e.getMessage());
 //    }
 
 }
